@@ -1,4 +1,4 @@
-package test.uber.ubertestproject.driver;
+package test.uber.ubertestproject.customer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import test.uber.ubertestproject.R;
 import test.uber.ubertestproject.map.MapActivity;
 
-public class DriverLoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class CustomerLoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etEmail, etPassword;
     private Button btnLogin, btnRegistration;
@@ -31,7 +31,7 @@ public class DriverLoginActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driver_login);
+        setContentView(R.layout.activity_customer_login);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -43,7 +43,7 @@ public class DriverLoginActivity extends AppCompatActivity implements View.OnCli
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                 if (user!=null){
-                    Intent intent = new Intent(DriverLoginActivity.this, MapActivity.class);
+                    Intent intent = new Intent(CustomerLoginActivity.this, MapActivity.class);
                     startActivity(intent);
                     finish();
                     return;
@@ -74,7 +74,7 @@ public class DriverLoginActivity extends AppCompatActivity implements View.OnCli
 
                 final String email_login = etEmail.getText().toString();
                 final String pass_login = etPassword.getText().toString();
-                mAuth.signInWithEmailAndPassword(email_login, pass_login).addOnCompleteListener(DriverLoginActivity.this, new OnCompleteListener<AuthResult>() {
+                mAuth.signInWithEmailAndPassword(email_login, pass_login).addOnCompleteListener(CustomerLoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()){
@@ -86,14 +86,14 @@ public class DriverLoginActivity extends AppCompatActivity implements View.OnCli
             case R.id.registration:
                 final String email = etEmail.getText().toString();
                 final String pass = etPassword.getText().toString();
-                mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(DriverLoginActivity.this, new OnCompleteListener<AuthResult>() {
+                mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(CustomerLoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful())    {
                             Toast.makeText(getApplicationContext(), "Sign up error!", Toast.LENGTH_LONG).show();
                         }else {
                             String user_id = mAuth.getCurrentUser().getUid();
-                            DatabaseReference current_user_id = FirebaseDatabase.getInstance().getReference("Users").child("Drivers").child(user_id);
+                            DatabaseReference current_user_id = FirebaseDatabase.getInstance().getReference("Users").child("Customers").child(user_id);
                             current_user_id.setValue(current_user_id);
                         }
                     }

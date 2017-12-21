@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="test.uber.ubertestproject">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,7 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".driver.DriverLoginActivity"></activity>
+        <activity android:name=".driver.DriverLoginActivity" />
+        <activity android:name=".map.MapActivity" />
+        <activity android:name=".customer.CustomerLoginActivity"></activity>
     </application>
 
 </manifest>
